@@ -3,6 +3,7 @@ package com.iagl.avios.calculator.api.v1;
 import com.iagl.avios.calculator.calculator.AviosCalculationService;
 import com.iagl.avios.calculator.calculator.CalculationParameters;
 import jakarta.validation.constraints.Pattern;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class IaglAviosCalculatorControllerV1 {
   private final AviosCalculationService aviosCalculationService;
 
+  @Autowired
   public IaglAviosCalculatorControllerV1(AviosCalculationService aviosCalculationService) {
     this.aviosCalculationService = aviosCalculationService;
   }

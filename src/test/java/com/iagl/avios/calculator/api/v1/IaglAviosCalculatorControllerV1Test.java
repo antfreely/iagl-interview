@@ -10,8 +10,7 @@ import org.springframework.http.ResponseEntity;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class IaglAviosCalculatorControllerV1Test {
   private AviosCalculationService aviosCalculationService;
@@ -36,6 +35,7 @@ public class IaglAviosCalculatorControllerV1Test {
     final ResponseEntity<CalculationResponseDtoV1> actualResponse = underTest.getAviosCalculationWithRequestBody(airportCodeArrival, airportCodeDeparture, cabinCode);
 
     // Then
+    verify(aviosCalculationService, times(1)).calculateAviosPoints(any(CalculationParameters.class));
     assertEquals(HttpStatus.OK, actualResponse.getStatusCode());
     assertEquals(500, actualResponse.getBody().getAviosPoints());
   }
@@ -53,6 +53,7 @@ public class IaglAviosCalculatorControllerV1Test {
     final ResponseEntity<CalculationResponseDtoV1> actualResponse = underTest.getAviosCalculationWithRequestBody(airportCodeArrival, airportCodeDeparture, cabinCode);
 
     // Then
+    verify(aviosCalculationService, times(1)).calculateAviosPoints(any(CalculationParameters.class));
     assertEquals(HttpStatus.OK, actualResponse.getStatusCode());
     assertEquals(500, actualResponse.getBody().getAviosPoints());
   }
@@ -69,6 +70,7 @@ public class IaglAviosCalculatorControllerV1Test {
     InvalidCabinCodeException exception = assertThrows(InvalidCabinCodeException.class, () -> underTest.getAviosCalculationWithRequestBody(airportCodeArrival, airportCodeDeparture, cabinCode));
 
     // Then
+    verify(aviosCalculationService, never()).calculateAviosPoints(any(CalculationParameters.class));
     assertEquals("Invalid cabin code provided: MMM", exception.getMessage());
   }
 
@@ -83,6 +85,7 @@ public class IaglAviosCalculatorControllerV1Test {
     InvalidCabinCodeException exception = assertThrows(InvalidCabinCodeException.class, () -> underTest.getAviosCalculationWithRequestBody(airportCodeArrival, airportCodeDeparture, cabinCode));
 
     // Then
+    verify(aviosCalculationService, never()).calculateAviosPoints(any(CalculationParameters.class));
     assertEquals("Invalid cabin code provided: ;", exception.getMessage());
   }
 
