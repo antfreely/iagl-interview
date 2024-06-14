@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  avios_calculator:
+    image: avios_calculator:app
+    container_name: avios_calculator
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - rabbitmq
