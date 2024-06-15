@@ -2,7 +2,8 @@
 Solution for the IAG Loyalty Java Take Home Test
 
 The solution is Spring Boot application that exposes a ReST endpoint to the user.
-The 
+
+The solution uses an SQL database to store the configuration for routes and cabin bonuses. 
 
 ## Prerequisites
 - Java 17
@@ -11,6 +12,7 @@ The
 ## Building solution
 
 1. Run Gradle file
+
 Load gradle wrapper with either `gradlew.bat` or `gradlew.sh`
 
 2. Run `gradlew build`
@@ -20,6 +22,11 @@ Load gradle wrapper with either `gradlew.bat` or `gradlew.sh`
 Run `docker-compose up -d`
 
 Execute GET request on endpoint:
+
 `http://localhost:8080/v1/avios-calculator-service?airportCodeArrival={}&airportCodeDeparture={}&cabinCode={}`
 
+Airport parameters must be provided and only contain letters
+
 The cabin code endpoint can be left empty or ignored, altogether
+
+Otherwise, you must supply a valid cabin code, else, the API will point out it's invalid
