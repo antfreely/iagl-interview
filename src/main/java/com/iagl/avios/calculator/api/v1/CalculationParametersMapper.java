@@ -1,6 +1,6 @@
 package com.iagl.avios.calculator.api.v1;
 
-import com.iagl.avios.calculator.api.v1.exception.AirportCodesInvalidException;
+import com.iagl.avios.calculator.api.v1.exception.AirportCodesAreSameException;
 import com.iagl.avios.calculator.api.v1.exception.InvalidCabinCodeException;
 import com.iagl.avios.calculator.calculator.CabinCode;
 import com.iagl.avios.calculator.calculator.CalculationParameters;
@@ -17,7 +17,7 @@ public class CalculationParametersMapper {
 
   private static void validateAirportCodes(String airportCodeArrival, String airportCodeDeparture) {
     if (airportCodeArrival.equals(airportCodeDeparture)) {
-      throw new AirportCodesInvalidException();
+      throw new AirportCodesAreSameException();
     }
   }
 

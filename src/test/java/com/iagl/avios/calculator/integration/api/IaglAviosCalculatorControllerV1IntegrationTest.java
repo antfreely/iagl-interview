@@ -69,7 +69,8 @@ public class IaglAviosCalculatorControllerV1IntegrationTest {
   @ParameterizedTest
   @CsvSource(value = {
       "ABC!X;YZ!Invalid query parameters: X;YZ",
-      "A;BC!X;YZ!Invalid query parameters: A;BC,X;YZ"
+      "A;BC!X;YZ!Invalid query parameters: A;BC,X;YZ",
+      "ABC!ABC!Airport codes can't be the same"
   },
       delimiter = '!')
   public void shouldGetErrorWhenProvidingInvalidAirportCode(String arrival, String departure, String errorMessage) throws Exception {

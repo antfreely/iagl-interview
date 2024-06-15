@@ -1,6 +1,6 @@
 package com.iagl.avios.calculator.api.v1;
 
-import com.iagl.avios.calculator.api.v1.exception.AirportCodesInvalidException;
+import com.iagl.avios.calculator.api.v1.exception.AirportCodesAreSameException;
 import com.iagl.avios.calculator.api.v1.exception.InvalidCabinCodeException;
 import com.iagl.avios.calculator.calculator.AviosCalculationService;
 import com.iagl.avios.calculator.calculator.CalculationParameters;
@@ -70,7 +70,7 @@ public class IaglAviosCalculatorControllerV1Test {
     final String cabinCode = "M";
 
     // When
-    AirportCodesInvalidException exception = assertThrows(AirportCodesInvalidException.class, () -> underTest.getAviosCalculationWithRequestBody(airportCodeArrival, airportCodeDeparture, cabinCode));
+    AirportCodesAreSameException exception = assertThrows(AirportCodesAreSameException.class, () -> underTest.getAviosCalculationWithRequestBody(airportCodeArrival, airportCodeDeparture, cabinCode));
 
     // Then
     verify(aviosCalculationService, never()).calculateAviosPoints(any(CalculationParameters.class));

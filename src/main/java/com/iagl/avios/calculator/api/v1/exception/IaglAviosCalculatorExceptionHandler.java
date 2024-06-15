@@ -14,8 +14,8 @@ import java.util.stream.Collectors;
 
 @ControllerAdvice
 public class IaglAviosCalculatorExceptionHandler {
-  @ExceptionHandler(InvalidCabinCodeException.class)
-  public ResponseEntity<ErrorMessageDtoV1> handleInvalidCabinCode(InvalidCabinCodeException ex) {
+  @ExceptionHandler(IaglInvalidRequestException.class)
+  public ResponseEntity<ErrorMessageDtoV1> handleInvalidCabinCode(IaglInvalidRequestException ex) {
     final ErrorMessageDtoV1 responseBody = ErrorMessageDtoV1.builder()
         .errorMessage(ex.getMessage())
         .build();
