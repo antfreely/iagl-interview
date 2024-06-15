@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * Main class for querying figures to then use for calculating the Avios points earned.
+ * Main class for querying figures to then use for calculating the Avios points earned
  */
 @Service
 public class AviosCalculationService {
