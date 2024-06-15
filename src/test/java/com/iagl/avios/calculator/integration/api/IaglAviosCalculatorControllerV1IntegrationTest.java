@@ -3,6 +3,7 @@ package com.iagl.avios.calculator.integration.api;
 import com.iagl.avios.calculator.IaglAviosCalculatorApplication;
 import com.iagl.avios.calculator.calculator.AviosCalculationService;
 import com.iagl.avios.calculator.calculator.CalculationParameters;
+import com.iagl.avios.calculator.db.cabin.bonus.CabinBonusConfigurationNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -73,6 +74,22 @@ public class IaglAviosCalculatorControllerV1IntegrationTest {
     mockMvc.perform(get("/v1/avios-calculator-service" + queryParameters))
         // Then
         .andExpect(status().is4xxClientError())
+        .andExpect(content().contentType("application/json"))
+        .andExpect(content().string(expectedResponseBody));
+  }
+
+  @Test
+  public void shouldGetErrorWhenCalculatorThrowsError() throws Exception {
+    // Given
+    final String queryParameters = "?airportCodeArrival=ABC&airportCodeDeparture=XYZ";
+    when(mockCalculationService.calculateAviosPoints(any(CalculationParameters.class)))
+        .thenThrow(new CabinBonusConfigurationNotFoundException("My error"));
+
+    // When
+    final String expectedResponseBody = "{\"errorMessage\":\"Issue with the server\"}";
+    mockMvc.perform(get("/v1/avios-calculator-service" + queryParameters))
+        // Then
+        .andExpect(status().is5xxServerError())
         .andExpect(content().contentType("application/json"))
         .andExpect(content().string(expectedResponseBody));
   }

@@ -3,6 +3,7 @@ package com.iagl.avios.calculator.db;
 import com.iagl.avios.calculator.calculator.CabinCode;
 import com.iagl.avios.calculator.db.cabin.bonus.CabinBonus;
 import com.iagl.avios.calculator.db.cabin.bonus.CabinBonusDao;
+import com.iagl.avios.calculator.db.cabin.bonus.CabinBonusConfigurationNotFoundException;
 import com.iagl.avios.calculator.db.route.RouteDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -35,7 +36,7 @@ public class AviosPointsConfigurationQueryService {
 
   public int findMultiplierForCabinCode(CabinCode cabinCode) {
     final CabinBonus cabinBonus = cabinBonusDao.findById(cabinCode)
-        .orElseThrow(() -> new RuntimeException("Issue fetching bonus details for cabin code: " + cabinCode));
+        .orElseThrow(() -> new CabinBonusConfigurationNotFoundException("Issue fetching bonus details for cabin code: " + cabinCode));
     return cabinBonus.getBonus();
   }
 }

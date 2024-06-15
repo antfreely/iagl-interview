@@ -11,5 +11,4 @@ public class IaglAviosCalculatorApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(IaglAviosCalculatorApplication.class, args);
 	}
-
 }

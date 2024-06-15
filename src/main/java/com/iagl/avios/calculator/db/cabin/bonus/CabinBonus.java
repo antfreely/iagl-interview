@@ -12,6 +12,7 @@ import lombok.Setter;
 public class CabinBonus {
   @Id
   @Column(name = "cabin_code", unique = true)
+  @Enumerated(EnumType.STRING)
   private CabinCode cabinCode;
 
   @Column(name = "cabin_name")
