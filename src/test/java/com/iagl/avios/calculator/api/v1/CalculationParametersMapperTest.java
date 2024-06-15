@@ -64,7 +64,7 @@ public class CalculationParametersMapperTest {
     final String departure = "XYZ";
 
     // When
-    InvalidCabinCodeException exception =  assertThrows(InvalidCabinCodeException.class, () -> CalculationParametersMapper.from(arrival, departure, cabinCode));
+    InvalidCabinCodeException exception = assertThrows(InvalidCabinCodeException.class, () -> CalculationParametersMapper.from(arrival, departure, cabinCode));
 
     // Then
     assertEquals("Invalid cabin code provided: " + cabinCode, exception.getMessage());

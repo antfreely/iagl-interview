@@ -2,8 +2,8 @@ package com.iagl.avios.calculator.db;
 
 import com.iagl.avios.calculator.calculator.CabinCode;
 import com.iagl.avios.calculator.db.cabin.bonus.CabinBonus;
-import com.iagl.avios.calculator.db.cabin.bonus.CabinBonusDao;
 import com.iagl.avios.calculator.db.cabin.bonus.CabinBonusConfigurationNotFoundException;
+import com.iagl.avios.calculator.db.cabin.bonus.CabinBonusDao;
 import com.iagl.avios.calculator.db.route.RouteDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

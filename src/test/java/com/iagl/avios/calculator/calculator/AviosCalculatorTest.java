@@ -18,7 +18,7 @@ public class AviosCalculatorTest {
     AviosCalculator underTest = new AviosCalculator();
 
     // When
-    int actual = underTest.calculate(routePoints , multiplier);
+    int actual = underTest.calculate(routePoints, multiplier);
 
     // Then
     assertEquals(expected, actual);

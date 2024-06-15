@@ -5,6 +5,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class AviosCalculator {
   public int calculate(int routePoints, int multiplier) {
-    return routePoints + (multiplier * routePoints / 100 );
+    return routePoints + (multiplier * routePoints / 100);
   }
 }

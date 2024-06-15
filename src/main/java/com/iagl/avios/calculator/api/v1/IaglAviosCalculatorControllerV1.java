@@ -22,7 +22,7 @@ public class IaglAviosCalculatorControllerV1 {
   public ResponseEntity<CalculationResponseDtoV1> getAviosCalculationWithRequestBody(
       @RequestParam @Pattern(regexp = "^[A-Za-z]*$") String airportCodeArrival,
       @RequestParam @Pattern(regexp = "^[A-Za-z]*$") String airportCodeDeparture,
-      @RequestParam(required = false) @Pattern(regexp = "^[A-Z]*$")  String cabinCode) {
+      @RequestParam(required = false) @Pattern(regexp = "^[A-Z]*$") String cabinCode) {
     final CalculationParameters calculationParameters = CalculationParametersMapper.from(airportCodeArrival, airportCodeDeparture, cabinCode);
     final int aviosPoints = aviosCalculationService.calculateAviosPoints(calculationParameters);
     final CalculationResponseDtoV1 responseBody = CalculationResponseDtoV1.builder()
