@@ -15,8 +15,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DataJpaTest
 @ActiveProfiles("test")
-//@Import(IaglAviosCalculatorApplication.class)
-//@AutoConfigureTestDatabase
 public class IaglAviosCalculatorApplicationTests {
   @Autowired
   private RouteDao routeDao;
