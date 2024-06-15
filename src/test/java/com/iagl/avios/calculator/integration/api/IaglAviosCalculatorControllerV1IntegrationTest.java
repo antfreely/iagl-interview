@@ -5,6 +5,8 @@ import com.iagl.avios.calculator.calculator.AviosCalculationService;
 import com.iagl.avios.calculator.calculator.CalculationParameters;
 import com.iagl.avios.calculator.db.cabin.bonus.CabinBonusConfigurationNotFoundException;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -51,12 +53,31 @@ public class IaglAviosCalculatorControllerV1IntegrationTest {
   }
 
   @Test
-  public void shouldGetErrorWhenProvidingInvalidAirportCode() throws Exception {
+  public void shouldGetErrorWhenProvidingEmptyStringForAirportCodes() throws Exception {
     // Given
-    final String queryParameters = "?airportCodeArrival=ABC&airportCodeDeparture=X;YZ";
+    final String queryParameters = "?airportCodeArrival=&airportCodeDeparture=";
 
     // When
-    final String expectedResponseBody = "{\"errorMessage\":\"Invalid query parameters: X;YZ\"}";
+    final String expectedResponseBody = "{\"errorMessage\":\"Invalid query parameters: ,\"}";
+    mockMvc.perform(get("/v1/avios-calculator-service" + queryParameters))
+        // Then
+        .andExpect(status().is4xxClientError())
+        .andExpect(content().contentType("application/json"))
+        .andExpect(content().string(expectedResponseBody));
+  }
+
+  @ParameterizedTest
+  @CsvSource(value = {
+      "ABC!X;YZ!Invalid query parameters: X;YZ",
+      "A;BC!X;YZ!Invalid query parameters: A;BC,X;YZ"
+  },
+      delimiter = '!')
+  public void shouldGetErrorWhenProvidingInvalidAirportCode(String arrival, String departure, String errorMessage) throws Exception {
+    // Given
+    final String queryParameters = String.format("?airportCodeArrival=%s&airportCodeDeparture=%s", arrival, departure);
+
+    // When
+    final String expectedResponseBody = String.format("{\"errorMessage\":\"%s\"}", errorMessage);
     mockMvc.perform(get("/v1/avios-calculator-service" + queryParameters))
         // Then
         .andExpect(status().is4xxClientError())

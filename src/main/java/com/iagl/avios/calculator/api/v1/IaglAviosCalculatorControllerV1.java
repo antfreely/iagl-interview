@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class IaglAviosCalculatorControllerV1 {
+  private static final String NON_EMPTY = "^[A-Za-z]+$";
+  private static final String ALLOW_EMPTY = "^[A-Z]*$";
+
   private final AviosCalculationService aviosCalculationService;
 
   @Autowired
@@ -23,9 +26,9 @@ public class IaglAviosCalculatorControllerV1 {
 
   @GetMapping(value = "/v1/avios-calculator-service", produces = "application/json")
   public ResponseEntity<CalculationResponseDtoV1> getAviosCalculationWithRequestBody(
-      @RequestParam @Pattern(regexp = "^[A-Za-z]*$") String airportCodeArrival,
-      @RequestParam @Pattern(regexp = "^[A-Za-z]*$") String airportCodeDeparture,
-      @RequestParam(required = false) @Pattern(regexp = "^[A-Z]*$") String cabinCode) {
+      @RequestParam @Pattern(regexp = NON_EMPTY) String airportCodeArrival,
+      @RequestParam @Pattern(regexp = NON_EMPTY) String airportCodeDeparture,
+      @RequestParam(required = false) @Pattern(regexp = ALLOW_EMPTY) String cabinCode) {
     final CalculationParameters calculationParameters = CalculationParametersMapper.from(airportCodeArrival, airportCodeDeparture, cabinCode);
     final int aviosPoints = aviosCalculationService.calculateAviosPoints(calculationParameters);
     final CalculationResponseDtoV1 responseBody = CalculationResponseDtoV1.builder()
